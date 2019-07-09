@@ -21,10 +21,17 @@
     ParseClientConfiguration *config = [ParseClientConfiguration   configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
         
         configuration.applicationId = @"lebronJordan";
-        configuration.server = @"http://ogig.herokuapp.com/parse";
+        configuration.server = @"https://ogig.herokuapp.com/parse";
     }];
     
     [Parse initializeWithConfiguration:config];
+    
+    
+    if (PFUser.currentUser) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        
+        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoggedIn"];
+    }
     
     return YES;
 }
