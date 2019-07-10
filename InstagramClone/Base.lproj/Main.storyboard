@@ -22,14 +22,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="391" id="oIQ-ax-uHu" customClass="PostCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="postCell" rowHeight="391" id="oIQ-ax-uHu" customClass="PostCell">
                                         <rect key="frame" x="0.0" y="28" width="414" height="391"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oIQ-ax-uHu" id="8zI-DH-mEd">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="390.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mst-w5-X9j">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mst-w5-X9j" customClass="PFImageView">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="340"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -68,12 +68,10 @@
                         <barButtonItem key="rightBarButtonItem" title="Item" image="insta_camera_btn" id="eXw-Oz-lmb">
                             <connections>
                                 <action selector="postButton:" destination="zF4-OM-ljg" id="cw8-KW-UVQ"/>
+                                <segue destination="REZ-pi-Agh" kind="presentation" id="Dye-JU-DxJ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <segue destination="REZ-pi-Agh" kind="presentation" identifier="tookPicture" id="JDr-7P-M7e"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g1f-YY-5UW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -322,23 +320,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YiA-Zv-e7i">
-                                <rect key="frame" x="74" y="234" width="267" height="171"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="YiA-Zv-e7i">
+                                <rect key="frame" x="20" y="108" width="160" height="170"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="170" id="kJr-DD-qcm"/>
+                                    <constraint firstAttribute="width" constant="160" id="pLh-E5-PoC"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="HgU-hW-9be" appends="YES" id="XNz-RQ-tbA"/>
+                                </connections>
                             </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ze8-eC-39j">
+                                <rect key="frame" x="200" y="108" width="194" height="33"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Ze8-eC-39j" firstAttribute="leading" secondItem="YiA-Zv-e7i" secondAttribute="trailing" constant="20" id="AZ8-iC-rCi"/>
+                            <constraint firstItem="Ze8-eC-39j" firstAttribute="top" secondItem="YiA-Zv-e7i" secondAttribute="top" id="DJh-oa-ga5"/>
+                            <constraint firstItem="YiA-Zv-e7i" firstAttribute="top" secondItem="m3i-yk-NPj" secondAttribute="top" constant="20" id="HVu-xl-CtU"/>
+                            <constraint firstItem="m3i-yk-NPj" firstAttribute="trailing" secondItem="Ze8-eC-39j" secondAttribute="trailing" constant="20" id="KUf-08-wrw"/>
+                            <constraint firstItem="YiA-Zv-e7i" firstAttribute="leading" secondItem="m3i-yk-NPj" secondAttribute="leading" constant="20" id="Pe3-y3-Nr2"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="m3i-yk-NPj"/>
                     </view>
                     <navigationItem key="navigationItem" id="Ewo-QL-Zuy">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="UB1-C9-tKt"/>
-                        <barButtonItem key="rightBarButtonItem" title="Post" id="DYE-s9-3id"/>
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="UB1-C9-tKt">
+                            <connections>
+                                <action selector="cancelButton:" destination="N6I-4M-sbr" id="YlO-wr-GjJ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Post" id="DYE-s9-3id">
+                            <connections>
+                                <action selector="finalPostButton:" destination="N6I-4M-sbr" id="Ab5-hg-WpW"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="caption" destination="Ze8-eC-39j" id="ZP0-9D-tPO"/>
                         <outlet property="picView" destination="YiA-Zv-e7i" id="lZe-Hw-jWQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ez3-eo-X0o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="HgU-hW-9be">
+                    <connections>
+                        <action selector="cameraLauncer:" destination="N6I-4M-sbr" id="AN5-Ou-bb4"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="415.94202898550731" y="3158.7053571428569"/>
         </scene>
@@ -346,6 +378,7 @@
     <resources>
         <image name="feed_tab" width="25" height="25"/>
         <image name="gradientBackground" width="2400" height="2000"/>
+        <image name="image_placeholder" width="375" height="375"/>
         <image name="insta_camera_btn" width="25" height="25"/>
         <image name="profile_tab" width="25" height="25"/>
     </resources>

@@ -32,8 +32,16 @@
     newPost.caption = caption;
     newPost.likeCount = @(0);
     newPost.commentCount = @(0);
+
+    [newPost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            NSLog(@"Successfully saved post");
+        }
+        else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
     
-    [newPost saveInBackgroundWithBlock: completion];
 }
 
 + (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image {
@@ -50,7 +58,7 @@
     }
     
     return nil;
-    //return [PFFile fileWithName:@"image.png" data:imageData];
+    return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
 }
 
 @end

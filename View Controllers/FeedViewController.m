@@ -12,12 +12,16 @@
 #import "LoginPageViewController.h"
 #import "Post.h"
 #import "ComposeViewController.h"
+#import "PostCell.h"
 
 
 
-@interface FeedViewController () <UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface FeedViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSMutableArray *posts;
+@property (strong, nonatomic) NSArray *postsArray;
+@property (weak, nonatomic) UIImage *capturedPic;
+
+
 
 @end
 
@@ -35,6 +39,22 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
+    // construct PFQuery
+    PFQuery *postQuery = [Post query];
+    [postQuery orderByDescending:@"createdAt"];
+    [postQuery includeKey:@"author"];
+    postQuery.limit = 20;
+    
+    // fetch data asynchronously
+    [postQuery findObjectsInBackgroundWithBlock:^(NSArray<Post *> * _Nullable posts, NSError * _Nullable error) {
+        if (posts) {
+            self.postsArray = posts;
+        }
+        else {
+            NSLog(@"Was not able to load posts");
+        }
+    }];
+    
 }
 
 
@@ -46,38 +66,13 @@
     // Pass the selected object to the new view controller.
     
     
-    
-    
 }
 
-
-
-- (void) launchCamera
-
-{
- 
-    UIImagePickerController *imagePickerVC = [UIImagePickerController new];
-    imagePickerVC.delegate = self;
-    imagePickerVC.allowsEditing = YES;
-    imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
-    
-    [self presentViewController:imagePickerVC animated:YES completion:nil];
-    
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
-    }
-    else {
-        NSLog(@"Camera 🚫 available so we will use photo library instead");
-        imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    }
-    
-}
 
 
 
 - (IBAction)postButton:(id)sender {
     
-    [self launchCamera];
     
 }
 
@@ -96,26 +91,28 @@
     
 }
 
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    PostCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"postCell" forIndexPath:indexPath];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    Post *post = self.postsArray[indexPath.row];
+    
+    cell.post = post;
+    
+    cell.postCaption.text = post[@"caption"];
+    [cell setPost:post];
+    
+    return cell;
 
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    
-    // Get the image captured by the UIImagePickerController
-    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
-    // Do something with the images (based on your use case)
-    
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ComposeViewController *composingPost = [storyboard instantiateViewControllerWithIdentifier:@"ComposePost"];
-    composingPost.picView.image = originalImage;
-    
-    // Dismiss UIImagePickerController to go back to your original view controller
-    [self dismissViewControllerAnimated:YES completion:nil];
-
-    
-    [self presentViewController:composingPost animated:YES completion:nil];
-    
 }
+
+
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.postsArray.count;
+}
+
 
 
 @end

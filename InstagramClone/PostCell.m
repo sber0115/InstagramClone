@@ -7,12 +7,20 @@
 //
 
 #import "PostCell.h"
+#import "PostCell.h"
 
 @implementation PostCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+}
+
+
+- (void)setPost:(Post *)post {
+    _post = post;
+    self.postImage.file = post[@"image"];
+    [self.postImage loadInBackground];
 }
 
 
