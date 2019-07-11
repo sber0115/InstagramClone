@@ -7,7 +7,7 @@
 //
 
 #import "PostCell.h"
-#import "PostCell.h"
+#import "Post.h"
 
 @implementation PostCell
 
@@ -17,10 +17,16 @@
 }
 
 
-- (void)setPost:(Post *)post {
+- (void)makePost:(Post *)post {
     _post = post;
-    self.postImage.file = post[@"image"];
+    self.postImage.file = post.image;
     [self.postImage loadInBackground];
+    self.postCaption.text = post.caption;
+    self.numLikes.text = [post.likeCount stringValue];
+    
+    PFUser *author = post[@"author"];
+    self.postUsername.text = author.username;
+    
 }
 
 

@@ -11,16 +11,26 @@
 
 #import <UIKit/UIKit.h>
 #import "Post.h"
+#import <Parse/Parse.h>
+#import "PFImageView.h"
 
-@import ParseUI
+@import Parse;
+
+//@import ParseUI
 
 NS_ASSUME_NONNULL_BEGIN
 
 
 @interface PostCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *postImage;
-@property (weak, nonatomic) IBOutlet UITextView *postCaption;
+@property (weak, nonatomic) IBOutlet PFImageView *postImage;
+@property (weak, nonatomic) IBOutlet UILabel *postCaption;
 @property (strong, nonatomic) Post *post;
+@property (weak, nonatomic) IBOutlet UILabel *numLikes;
+@property (weak, nonatomic) IBOutlet UILabel *postUsername;
+@property (weak, nonatomic) IBOutlet UILabel *postTimeElapsed;
+
+- (void)makePost:(Post *)post;
+
 
 
 @end

@@ -24,6 +24,29 @@
 }
 
 
+
+- (void) incorrectCredentials
+{
+    
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Incorrect Credentials"
+                                                                   message:@"Please check inputted username/password"
+                                                            preferredStyle:(UIAlertControllerStyleAlert)];
+    
+    // create an OK action
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                         // handle response here.
+                                                     }];
+    // add the OK action to the alert controller
+    [alert addAction:okAction];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+
+
 - (void)loginUser {
     NSString *username = self.usernameText.text;
     NSString *password = self.passwordText.text;
@@ -31,6 +54,9 @@
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         if (error != nil) {
             NSLog(@"User log in failed: %@", error.localizedDescription);
+            [self incorrectCredentials];
+            
+            
         } else {
             NSLog(@"User logged in successfully");
             
@@ -60,6 +86,18 @@
 - (IBAction)signupButton:(id)sender {
 }
 
+
+
+
+
+
+- (IBAction)usernameAction:(id)sender {
+    [self.usernameText resignFirstResponder];
+}
+
+- (IBAction)passwordAction:(id)sender {
+    [self.passwordText resignFirstResponder];
+}
 
 
 

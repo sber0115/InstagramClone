@@ -106,8 +106,12 @@
     
     [Post postUserImage:self.picView.image withCaption:self.caption.text withCompletion:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
+    
 
+    
 }
+
+
 
 
 
