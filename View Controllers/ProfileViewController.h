@@ -11,7 +11,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ProfileViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIImageView *profileImagePFImageView;
+@property (weak, nonatomic) IBOutlet UILabel *numPostsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+
 
 @end
+
+
 
 NS_ASSUME_NONNULL_END
