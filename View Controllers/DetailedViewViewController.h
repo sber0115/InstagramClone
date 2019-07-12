@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *postCaption;
 @property (weak, nonatomic) IBOutlet UILabel *postLikes;
 @property (weak, nonatomic) IBOutlet UILabel *postUsername;
+@property (weak, nonatomic) IBOutlet UILabel *createdAt;
 
 
 @end

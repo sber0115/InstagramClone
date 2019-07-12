@@ -17,11 +17,12 @@
 
 
 
+
 @interface FeedViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *postsArray;
 @property (weak, nonatomic) UIImage *capturedPic;
-
+@property (assign, nonatomic) BOOL isMoreDataLoading;
 
 
 @end
@@ -32,6 +33,8 @@
 
 
 @implementation FeedViewController
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -49,6 +52,75 @@
     [self refreshData];
     
 }
+
+
+
+//have to this method to make it clearer
+//that this is handling refreshing as user scrolls
+-(void)loadMoreData{
+    
+    // construct PFQuery
+    PFQuery *morePostsQuery = [Post query];
+    [morePostsQuery orderByDescending:@"createdAt"];
+    [morePostsQuery includeKey:@"author"];
+    
+    
+    
+    //here I am filtering the posts retrieved with their creation date
+    //when user scrolls enough, the posts that are older than the last
+    //current post in view are loaded into the postsArray
+    
+    Post *finalPost = [self.postsArray objectAtIndex:self.postsArray.count-1];
+    NSDate *finalPostDate = finalPost.createdAt;
+    
+    [morePostsQuery whereKey:@"createdAt" lessThan:finalPostDate];
+    
+    //wherekey -->  created at less than
+    // get the date of the last post --> array indexing
+
+    // fetch data asynchronously
+    [morePostsQuery findObjectsInBackgroundWithBlock:^(NSArray<Post *> * _Nullable posts, NSError * _Nullable error) {
+        if (posts) {
+            [self.postsArray addObjectsFromArray:posts];
+            
+            [self.tableView reloadData];
+            
+            
+        }
+        else {
+            NSLog(@"There are no more posts to load");
+        }
+        
+    }];
+    
+    self.isMoreDataLoading = false;
+    
+    
+}
+
+
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if(!self.isMoreDataLoading){
+
+        // Calculate the position of one screen length before the bottom of the results
+        int scrollViewContentHeight = self.tableView.contentSize.height;
+        int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
+
+        // When the user has scrolled past the threshold, start requesting
+        if(scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
+            self.isMoreDataLoading = true;
+            [self loadMoreData];
+
+
+        }
+
+    }
+}
+
+
+
 
 
 
@@ -91,6 +163,8 @@
 
 
 
+
+
 - (void) refreshData
 
 {
@@ -99,7 +173,11 @@
     PFQuery *postQuery = [Post query];
     [postQuery orderByDescending:@"createdAt"];
     [postQuery includeKey:@"author"];
-    postQuery.limit = 20;
+    postQuery.limit = 2;
+    
+    
+    //wherekey -->  created at less than
+    // get the date of the last post --> array indexing
     
     // fetch data asynchronously
     [postQuery findObjectsInBackgroundWithBlock:^(NSArray<Post *> * _Nullable posts, NSError * _Nullable error) {
@@ -122,6 +200,9 @@
 
 
 
+
+
+
 - (IBAction)logoutButton:(id)sender {
     
     [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
@@ -134,6 +215,9 @@
     LoginPageViewController *loginPageViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
     [self presentViewController:loginPageViewController animated:YES completion:nil];
     
+}
+
+- (IBAction)composeButton:(id)sender {
 }
 
 
@@ -152,6 +236,7 @@
     
     
     [cell makePost:post];
+    
 //    cell.textLabel.text = post.caption;
     
     return cell;

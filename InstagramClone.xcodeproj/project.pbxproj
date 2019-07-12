@@ -23,6 +23,7 @@
 		783F0FD522D51E35009139E6 /* PostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 783F0FD422D51E35009139E6 /* PostCell.m */; };
 		783F0FD822D53F77009139E6 /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = 783F0FD722D53F77009139E6 /* Post.m */; };
 		783F0FDB22D547CB009139E6 /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 783F0FDA22D547CB009139E6 /* ComposeViewController.m */; };
+		7863DD2D22D80471008FAE18 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7863DD2C22D80471008FAE18 /* ProfileViewController.m */; };
 		78C7EBA922D675700084B98D /* DetailedViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78C7EBA822D675700084B98D /* DetailedViewViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +77,8 @@
 		783F0FD722D53F77009139E6 /* Post.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
 		783F0FD922D547CB009139E6 /* ComposeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
 		783F0FDA22D547CB009139E6 /* ComposeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
+		7863DD2922D8029E008FAE18 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		7863DD2C22D80471008FAE18 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		78C7EBA722D675700084B98D /* DetailedViewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailedViewViewController.h; sourceTree = "<group>"; };
 		78C7EBA822D675700084B98D /* DetailedViewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailedViewViewController.m; sourceTree = "<group>"; };
 		C9A590C45FEC63C4A527AA30 /* Pods-InstagramCloneTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramCloneTests.debug.xcconfig"; path = "Target Support Files/Pods-InstagramCloneTests/Pods-InstagramCloneTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -127,6 +130,7 @@
 		7829F84522D3FB77005ADD46 = {
 			isa = PBXGroup;
 			children = (
+				7863DD2822D801FB008FAE18 /* Cell Views */,
 				783F0FCC22D40C2A009139E6 /* Models */,
 				783F0FCB22D40C1B009139E6 /* View Controllers */,
 				7829F85022D3FB77005ADD46 /* InstagramClone */,
@@ -158,8 +162,6 @@
 				7829F85C22D3FB78005ADD46 /* LaunchScreen.storyboard */,
 				7829F85F22D3FB78005ADD46 /* Info.plist */,
 				7829F86022D3FB78005ADD46 /* main.m */,
-				783F0FD322D51E35009139E6 /* PostCell.h */,
-				783F0FD422D51E35009139E6 /* PostCell.m */,
 			);
 			path = InstagramClone;
 			sourceTree = "<group>";
@@ -195,6 +197,8 @@
 				783F0FDA22D547CB009139E6 /* ComposeViewController.m */,
 				78C7EBA722D675700084B98D /* DetailedViewViewController.h */,
 				78C7EBA822D675700084B98D /* DetailedViewViewController.m */,
+				7863DD2922D8029E008FAE18 /* ProfileViewController.h */,
+				7863DD2C22D80471008FAE18 /* ProfileViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -206,6 +210,15 @@
 				783F0FD722D53F77009139E6 /* Post.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		7863DD2822D801FB008FAE18 /* Cell Views */ = {
+			isa = PBXGroup;
+			children = (
+				783F0FD322D51E35009139E6 /* PostCell.h */,
+				783F0FD422D51E35009139E6 /* PostCell.m */,
+			);
+			path = "Cell Views";
 			sourceTree = "<group>";
 		};
 		BB09B8EA3DBE458E6BD3A6BB /* Frameworks */ = {
@@ -442,6 +455,7 @@
 				783F0FD222D4F617009139E6 /* FeedViewController.m in Sources */,
 				78C7EBA922D675700084B98D /* DetailedViewViewController.m in Sources */,
 				7829F86122D3FB78005ADD46 /* main.m in Sources */,
+				7863DD2D22D80471008FAE18 /* ProfileViewController.m in Sources */,
 				783F0FCF22D4F173009139E6 /* SignUpViewController.m in Sources */,
 				7829F85322D3FB77005ADD46 /* AppDelegate.m in Sources */,
 				783F0FD522D51E35009139E6 /* PostCell.m in Sources */,

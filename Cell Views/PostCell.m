@@ -8,6 +8,7 @@
 
 #import "PostCell.h"
 #import "Post.h"
+#import "NSDate+DateTools.h"
 
 @implementation PostCell
 
@@ -17,8 +18,20 @@
 }
 
 
+- (IBAction)pressLike:(id)sender {
+}
+
 - (void)makePost:(Post *)post {
     _post = post;
+    
+    NSDate *createdAtDate = post.createdAt;
+    
+    NSDate *timeAgoDate = [NSDate dateWithTimeInterval:0 sinceDate:createdAtDate];
+    
+    NSLog(@"Time since post creation: %@", timeAgoDate.shortTimeAgoSinceNow);
+    
+    self.postTimeElapsed.text = timeAgoDate.shortTimeAgoSinceNow;
+    
     self.postImage.file = post.image;
     [self.postImage loadInBackground];
     self.postCaption.text = post.caption;
