@@ -27,15 +27,13 @@
     NSDate *createdAtDate = post.createdAt;
     
     NSDate *timeAgoDate = [NSDate dateWithTimeInterval:0 sinceDate:createdAtDate];
-    
-    NSLog(@"Time since post creation: %@", timeAgoDate.shortTimeAgoSinceNow);
-    
+
     self.postTimeElapsed.text = timeAgoDate.shortTimeAgoSinceNow;
     
     self.postImage.file = post.image;
     [self.postImage loadInBackground];
     self.postCaption.text = post.caption;
-    self.numLikes.text = [post.likeCount stringValue];
+    self.numLikes.text = [NSString stringWithFormat:@"%lu",post.usersWhoLikedArray.count];
     
     PFUser *author = post[@"author"];
     self.postUsername.text = author.username;

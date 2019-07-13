@@ -87,10 +87,6 @@
 }
 
 
-
-
-
-
 - (IBAction)usernameAction:(id)sender {
     [self.usernameText resignFirstResponder];
 }

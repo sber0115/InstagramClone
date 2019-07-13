@@ -25,23 +25,13 @@
     NSDate *createdAtDate = self.post.createdAt;
     
     NSDate *timeAgoDate = [NSDate dateWithTimeInterval:0 sinceDate:createdAtDate];
-    
-    NSLog(@"Time since post creation: %@", timeAgoDate.shortTimeAgoSinceNow);
         
     self.createdAt.text = timeAgoDate.shortTimeAgoSinceNow;
     
     [super viewDidLoad];
     
-//    UIImage *imageToDisplay =
-//    [UIImage imageWithCGImage:[self.postPic.image CGImage]
-//                        scale:[self.postPic.image scale]
-//                  orientation: UIImageOrientationUp];
-    
-//    self.postPic.image = imageToDisplay;
-    
     self.postPic.file = self.post.image;
     [self.postPic loadInBackground];
-    
     
     
     PFUser *author = self.post[@"author"];
@@ -49,7 +39,7 @@
     self.postUsername.text = author.username;
     
     self.postCaption.text = self.post.caption;
-    self.postLikes.text = [self.post.likeCount stringValue];
+    self.postLikes.text = [NSString stringWithFormat:@"%lu", self.post.usersWhoLikedArray.count];
     
 
     // Do any additional setup after loading the view.

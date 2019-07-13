@@ -11,13 +11,17 @@
 #import "MBProgressHUD.h"
 
 
-@interface ComposeViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface ComposeViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate>
 @property (strong, nonatomic) UIImage *imageToPost;
 
 @end
 
 
 @implementation ComposeViewController
+
+
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -70,8 +74,6 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     
-    // Get the image captured by the UIImagePickerController
-    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
     UIImage *editedImage = info[UIImagePickerControllerEditedImage];
     
     //resize
@@ -109,16 +111,23 @@
 }
 
 
+
+
 - (IBAction)finalPostButton:(id)sender {
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.label.text = @"Posting...";
     
-    [Post postUserImage:self.picView.image withCaption:self.caption.text withCompletion:nil];
+    [Post postUserImage:self.picView.image withCaption:self.caption.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if(succeeded){
+        [hud hideAnimated:YES];
 
-    [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    }];
+
     
-    [hud hideAnimated:YES];
+  
 
     
 }

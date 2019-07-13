@@ -8,6 +8,7 @@
 
 #import "SignUpViewController.h"
 #import "Parse/Parse.h"
+#import "Post.h"
 
 @interface SignUpViewController ()
 
@@ -26,10 +27,14 @@
     // initialize a user object
     PFUser *newUser = [PFUser user];
     
-    // set user properties
+    // set user properties --> added profile image and full name support
+    //default profile image is set here
     newUser.username = self.signupUsername.text;
     newUser.email = self.signupEmail.text;
     newUser.password = self.signupPassword.text;
+    newUser[@"profileImageFile"] = [Post getPFFileFromImage:[UIImage imageNamed:@"default-profile-picture.png"]];
+    newUser[@"fullName"] = self.signupFullname.text;
+    
     
     // call sign up function on the object
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {

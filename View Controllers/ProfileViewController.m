@@ -7,10 +7,6 @@
 //
 
 #import "ProfileViewController.h"
-#import "Parse/Parse.h"
-#import "PFImageView.h"
-#import "PostedPicCell.h"
-#import "Post.h"
 
 
 @interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
@@ -21,33 +17,123 @@
 
 @implementation ProfileViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
     self.usernameLabel.text = PFUser.currentUser.username;
-
+    self.nameLabel.text = PFUser.currentUser[@"fullName"];
+    
+    
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     
+    [self setUserProfileImage];
+    [self collectionViewFormatting];
     
-    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout*)self.collectionView.collectionViewLayout;
-    
-    layout.minimumInteritemSpacing = 5;
-    layout.minimumLineSpacing = 5;
-    
-    
-    
-    CGFloat imagesPerLine = 3;
-    CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing * (imagesPerLine - 1)) / imagesPerLine;
-    CGFloat itemHeight = itemWidth * 1.5;
-    
-    layout.itemSize = CGSizeMake(itemWidth,itemHeight);
     
     [self userOnlyData];
     
     
+}
+
+
+
+
+- (void) setUserProfileImage
+{
+    
+    PFFileObject *userProfileImageFile = [PFUser currentUser][@"profileImageFile"];
+    
+    self.profileImageImageView.file = userProfileImageFile;
+    [self.profileImageImageView loadInBackground];
+    
+    self.profileImageImageView.layer.masksToBounds = true;
+    self.profileImageImageView.layer.cornerRadius = self.profileImageImageView.frame.size.width/2;
     
 }
+
+
+
+
+
+- (void) collectionViewFormatting
+{
+    
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *) self.collectionView.collectionViewLayout;
+    layout.minimumInteritemSpacing = 0;
+    layout.minimumLineSpacing = 0;
+    CGFloat postsPerLine = 4;
+    CGFloat itemWidth = (self.collectionView.frame.size.width / postsPerLine);
+    CGFloat itemHeight = itemWidth;
+    layout.itemSize = CGSizeMake(itemWidth, itemHeight);
+    
+}
+
+
+
+
+//
+//- (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
+//    UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+//
+//    resizeImageView.contentMode = UIViewContentModeScaleAspectFill;
+//    resizeImageView.image = image;
+//
+//    UIGraphicsBeginImageContext(size);
+//    [resizeImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
+//    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//
+//    return newImage;
+//}
+//
+//
+//
+//- (void) launchCamera
+//
+//{
+//
+//    UIImagePickerController *imagePickerVC = [UIImagePickerController new];
+//    imagePickerVC.delegate = self;
+//    imagePickerVC.allowsEditing = YES;
+//
+//
+//
+//
+//    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+//        imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+//    }
+//    else {
+//        NSLog(@"Camera 🚫 available so we will use photo library instead");
+//        imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//    }
+//
+//
+//    [self presentViewController:imagePickerVC animated:YES completion:nil];
+//
+//}
+//
+//
+//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+//
+//    // Get the image captured by the UIImagePickerController
+//    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
+//    UIImage *editedImage = info[UIImagePickerControllerEditedImage];
+//
+//    //resize
+//    self.imageToPost = [self resizeImage:editedImage withSize:CGSizeMake(100, 100)];
+//
+//    self.picView.image = editedImage;
+//
+//
+//    // Do something with the images (based on your use case)
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//
+//}
+
+
 
 
 
@@ -86,10 +172,6 @@
 
 
 
-
-- (IBAction)didTapImage:(id)sender {
-    
-}
 
 /*
 #pragma mark - Navigation

@@ -34,11 +34,8 @@
 
 @implementation FeedViewController
 
-
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+- (void)viewDidAppear:(BOOL)animated
+{
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -50,6 +47,12 @@
     [self.tableView insertSubview:refreshControl atIndex:0];
     
     [self refreshData];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
     
 }
 
@@ -230,8 +233,6 @@
     
     Post *post = self.postsArray[indexPath.row];
     
-    NSLog(@"%d", indexPath.row);
-    
     cell.post = post;
     
     
@@ -246,7 +247,6 @@
 
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"calling number of row");
     return self.postsArray.count;
 }
 

@@ -31,15 +31,19 @@
     newPost.image = [self getPFFileFromImage:image];
     newPost.author = [PFUser currentUser];
     newPost.caption = caption;
-    newPost.likeCount = @(0);
+    newPost.usersWhoLikedArray = [NSMutableArray new];
     newPost.commentCount = @(0);
 
     [newPost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"Successfully saved post");
+            
+            //
+            completion(YES,nil);
         }
         else {
             NSLog(@"%@", error.localizedDescription);
+            completion(NO,error);
         }
     }];
     
