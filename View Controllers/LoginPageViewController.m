@@ -11,6 +11,12 @@
 #import "SignUpViewController.h"
 #import "Parse/Parse.h"
 
+
+static NSString * const ALERT_TITLE = @"Incorrect Credentials";
+static NSString * const ALERT_MESSAGE = @"Please check inputted username/password";
+static NSString * const SIGNED_IN_SEGUE = @"SignedIn";
+
+
 @interface LoginPageViewController ()
 
 @end
@@ -19,18 +25,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
 }
 
 
 
-- (void) incorrectCredentials
+- (void) incorrectCredentialsAlert
 {
     
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Incorrect Credentials"
-                                                                   message:@"Please check inputted username/password"
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle: ALERT_TITLE
+                                                                   message:ALERT_MESSAGE
                                                             preferredStyle:(UIAlertControllerStyleAlert)];
     
     // create an OK action
@@ -48,51 +52,35 @@
 
 
 - (void)loginUser {
-    NSString *username = self.usernameText.text;
-    NSString *password = self.passwordText.text;
+    NSString *username = self.usernameTextLabel.text;
+    NSString *password = self.passwordTextLabel.text;
     
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         if (error != nil) {
             NSLog(@"User log in failed: %@", error.localizedDescription);
-            [self incorrectCredentials];
-            
-            
-        } else {
+            [self incorrectCredentialsAlert];
+        }
+        else {
             NSLog(@"User logged in successfully");
             
             // display view controller that needs to shown after successful login
-             [self performSegueWithIdentifier:@"SignedIn" sender:self];
+             [self performSegueWithIdentifier:SIGNED_IN_SEGUE sender:self];
         }
     }];
 }
-
-
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    
-}
-
-
 
 
 - (IBAction)signinButton:(id)sender {
     [self loginUser];
 }
 
-- (IBAction)signupButton:(id)sender {
-}
-
 
 - (IBAction)usernameAction:(id)sender {
-    [self.usernameText resignFirstResponder];
+    [self.usernameTextLabel resignFirstResponder];
 }
 
 - (IBAction)passwordAction:(id)sender {
-    [self.passwordText resignFirstResponder];
+    [self.passwordTextLabel resignFirstResponder];
 }
 
 

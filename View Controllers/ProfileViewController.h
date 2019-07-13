@@ -15,10 +15,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ProfileViewController : UIViewController
-@property (weak, nonatomic) IBOutlet PFImageView *profileImageImageView;
+@property (weak, nonatomic) IBOutlet PFImageView *profilePicImageView;
 @property (weak, nonatomic) IBOutlet UILabel *numPostsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+- (IBAction)editProfilePicButton:(id)sender;
 
 
 @end

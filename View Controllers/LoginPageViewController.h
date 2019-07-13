@@ -11,11 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LoginPageViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UILabel *instaText;
+@property (weak, nonatomic) IBOutlet UILabel *instaTextLabel;
 - (IBAction)signinButton:(id)sender;
-- (IBAction)signupButton:(id)sender;
-@property (weak, nonatomic) IBOutlet UITextField *usernameText;
-@property (weak, nonatomic) IBOutlet UITextField *passwordText;
+@property (weak, nonatomic) IBOutlet UITextField *usernameTextLabel;
+@property (weak, nonatomic) IBOutlet UITextField *passwordTextLabel;
 
 - (IBAction)usernameAction:(id)sender;
 - (IBAction)passwordAction:(id)sender;

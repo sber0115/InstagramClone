@@ -10,6 +10,12 @@
 #import "Parse/Parse.h"
 #import "Post.h"
 
+static NSString * const USER_PROFILE_IMAGE_KEY = @"profileImageFile";
+static NSString * const USER_FULLNAME_KEY = @"fullName";
+static NSString * const DEFAULT_PROFILE_IMAGE_FILE = @"default-profile-picture.png";
+static NSString * const SIGNED_UP_SEGUE = @"SignedUp";
+
+
 @interface SignUpViewController ()
 
 @end
@@ -18,7 +24,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
 }
 
@@ -29,11 +34,11 @@
     
     // set user properties --> added profile image and full name support
     //default profile image is set here
-    newUser.username = self.signupUsername.text;
-    newUser.email = self.signupEmail.text;
-    newUser.password = self.signupPassword.text;
-    newUser[@"profileImageFile"] = [Post getPFFileFromImage:[UIImage imageNamed:@"default-profile-picture.png"]];
-    newUser[@"fullName"] = self.signupFullname.text;
+    newUser.username = self.signupUsernameTextField.text;
+    newUser.email = self.signupEmailTextField.text;
+    newUser.password = self.signupPasswordTextField.text;
+    newUser[USER_PROFILE_IMAGE_KEY] = [Post getPFFileFromImage:[UIImage imageNamed:DEFAULT_PROFILE_IMAGE_FILE]];
+    newUser[USER_FULLNAME_KEY] = self.signupFullnameTextField.text;
     
     
     // call sign up function on the object
@@ -44,26 +49,21 @@
             NSLog(@"User registered successfully");
             
             // manually segue to logged in view
-            
-            [self performSegueWithIdentifier:@"SignedUp" sender:self];
+            [self performSegueWithIdentifier:SIGNED_UP_SEGUE sender:self];
         }
     }];
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-- (IBAction)finalSignup:(id)sender {
+- (IBAction)finalSignupButton:(id)sender {
     
     [self registerUser];
     
+}
+
+- (IBAction)cancelButton:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

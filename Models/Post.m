@@ -19,6 +19,8 @@
 @dynamic image;
 @dynamic likeCount;
 @dynamic commentCount;
+@dynamic usersWhoLikedArray;
+@dynamic createdAtDate;
 
 + (nonnull NSString *)parseClassName {
     return @"Post";
@@ -33,13 +35,17 @@
     newPost.caption = caption;
     newPost.usersWhoLikedArray = [NSMutableArray new];
     newPost.commentCount = @(0);
+    newPost.createdAtDate = [NSDate date];
 
     [newPost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"Successfully saved post");
             
-            //
+            //line below is what sends the boolean yes
+            //to indicate post success to completion block
+            //nil is the error to be "returned"
             completion(YES,nil);
+            //the values above are to be used in the composeViewController
         }
         else {
             NSLog(@"%@", error.localizedDescription);

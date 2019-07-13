@@ -12,15 +12,12 @@
 @implementation PostedPicCell
 
 
-
-
 - (void)setImage:(Post *)post {
     _post = post;
     self.previousPostImageView.file = post.image;
     [self.previousPostImageView loadInBackground];
     
 }
-
 
 
 @end

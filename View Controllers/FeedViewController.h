@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface FeedViewController : UIViewController <UIScrollViewDelegate>
 
 - (IBAction)logoutButton:(id)sender;
-- (IBAction)composeButton:(id)sender;
 
 @end
 

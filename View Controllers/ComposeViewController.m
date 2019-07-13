@@ -20,13 +20,9 @@
 @implementation ComposeViewController
 
 
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-        
-    // Do any additional setup after loading the view.
 }
 
 
@@ -55,9 +51,6 @@
     imagePickerVC.delegate = self;
     imagePickerVC.allowsEditing = YES;
     
-    
-    
-    
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
     }
@@ -79,7 +72,7 @@
     //resize
     self.imageToPost = [self resizeImage:editedImage withSize:CGSizeMake(100, 100)];
     
-    self.picView.image = editedImage;
+    self.picImageView.image = editedImage;
     
     
     // Do something with the images (based on your use case)
@@ -95,22 +88,9 @@
 
 
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 - (IBAction)cancelButton:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-
 
 
 - (IBAction)finalPostButton:(id)sender {
@@ -118,22 +98,17 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.label.text = @"Posting...";
     
-    [Post postUserImage:self.picView.image withCaption:self.caption.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    [Post postUserImage:self.picImageView.image withCaption:self.captionTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if(succeeded){
-        [hud hideAnimated:YES];
-
+        
+        //now that post has successfully been posted, hide the progress HUD
+        [hud hideAnimated:YES];\
         [self dismissViewControllerAnimated:YES completion:nil];
         }
+        
     }];
-
-    
-  
-
     
 }
-
-
-
 
 
 

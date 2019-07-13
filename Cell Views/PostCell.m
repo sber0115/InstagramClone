@@ -14,41 +14,35 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
 
 
-- (IBAction)pressLike:(id)sender {
+- (IBAction)likeButton:(id)sender {
 }
 
 - (void)makePost:(Post *)post {
     _post = post;
     
-    NSDate *createdAtDate = post.createdAt;
+    NSDate *createdAtDate = post.createdAtDate;
     
     NSDate *timeAgoDate = [NSDate dateWithTimeInterval:0 sinceDate:createdAtDate];
 
-    self.postTimeElapsed.text = timeAgoDate.shortTimeAgoSinceNow;
+    self.postTimeElapsedLabel.text = timeAgoDate.shortTimeAgoSinceNow;
     
-    self.postImage.file = post.image;
-    [self.postImage loadInBackground];
-    self.postCaption.text = post.caption;
-    self.numLikes.text = [NSString stringWithFormat:@"%lu",post.usersWhoLikedArray.count];
+    self.postPhotoImageView.file = post.image;
+    [self.postPhotoImageView loadInBackground];
+    self.postCaptionLabel.text = post.caption;
+    self.numLikesLabel.text = [NSString stringWithFormat:@"%lu",post.usersWhoLikedArray.count];
     
     PFUser *author = post[@"author"];
-    self.postUsername.text = author.username;
+    self.postUsernameLabel.text = author[@"username"];
     
 }
-
-
-
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
 }
-
 
 
 @end

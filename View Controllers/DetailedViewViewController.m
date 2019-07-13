@@ -10,6 +10,10 @@
 #import "NSDate+DateTools.h"
 #import <UIKit/UIKit.h>
 
+
+static NSString * const POST_AUTHOR_KEY = @"author";
+
+
 @interface DetailedViewViewController ()
 
 @property (weak, nonatomic) UIImage *capturedPic;
@@ -20,39 +24,29 @@
 @implementation DetailedViewViewController
 
 - (void)viewDidLoad {
-    
-    
+    [super viewDidLoad];
+    [self configureDetailedView];
+}
+
+
+- (void)configureDetailedView
+{
     NSDate *createdAtDate = self.post.createdAt;
     
     NSDate *timeAgoDate = [NSDate dateWithTimeInterval:0 sinceDate:createdAtDate];
-        
-    self.createdAt.text = timeAgoDate.shortTimeAgoSinceNow;
     
-    [super viewDidLoad];
+    self.createdAtLabel.text = timeAgoDate.shortTimeAgoSinceNow;
     
-    self.postPic.file = self.post.image;
-    [self.postPic loadInBackground];
+    self.postPicImageView.file = self.post.image;
+    [self.postPicImageView loadInBackground];
     
+    PFUser *author = self.post[POST_AUTHOR_KEY];
     
-    PFUser *author = self.post[@"author"];
+    self.postUsernameLabel.text = author.username;
     
-    self.postUsername.text = author.username;
+    self.postCaptionLabel.text = self.post.caption;
+    self.postLikesLabel.text = [NSString stringWithFormat:@"%lu", self.post.usersWhoLikedArray.count];
     
-    self.postCaption.text = self.post.caption;
-    self.postLikes.text = [NSString stringWithFormat:@"%lu", self.post.usersWhoLikedArray.count];
-    
-
-    // Do any additional setup after loading the view.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

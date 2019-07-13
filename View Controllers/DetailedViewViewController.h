@@ -19,11 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DetailedViewViewController : UIViewController
 
 @property (strong, nonatomic) Post *post;
-@property (weak, nonatomic) IBOutlet PFImageView *postPic;
-@property (weak, nonatomic) IBOutlet UILabel *postCaption;
-@property (weak, nonatomic) IBOutlet UILabel *postLikes;
-@property (weak, nonatomic) IBOutlet UILabel *postUsername;
-@property (weak, nonatomic) IBOutlet UILabel *createdAt;
+@property (weak, nonatomic) IBOutlet PFImageView *postPicImageView;
+@property (weak, nonatomic) IBOutlet UILabel *postCaptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *postLikesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *postUsernameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *createdAtLabel;
 
 
 @end

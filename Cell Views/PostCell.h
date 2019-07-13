@@ -21,24 +21,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @interface PostCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet PFImageView *postImage;
-@property (weak, nonatomic) IBOutlet UILabel *postCaption;
+@property (weak, nonatomic) IBOutlet PFImageView *postPhotoImageView;
+@property (weak, nonatomic) IBOutlet UILabel *postCaptionLabel;
 @property (strong, nonatomic) Post *post;
-@property (weak, nonatomic) IBOutlet UILabel *numLikes;
-@property (weak, nonatomic) IBOutlet UILabel *postUsername;
-@property (weak, nonatomic) IBOutlet UILabel *postTimeElapsed;
+@property (weak, nonatomic) IBOutlet UILabel *numLikesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *postUsernameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *postTimeElapsedLabel;
 
-- (IBAction)pressLike:(id)sender;
-@property (weak, nonatomic) IBOutlet UIButton *pressComment;
-
-@property (weak, nonatomic) IBOutlet UILabel *commentCount;
-
-
-
+- (IBAction)likeButton:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *commentCountLabel;
 
 - (void)makePost:(Post *)post;
-
-
 
 @end
 
